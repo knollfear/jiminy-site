@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jiminy — Production planning for makers</title>
+  <meta name="description" content="Know what to make before you pack for the market. Jiminy connects to your Square or Shopify account and tells you exactly what to produce.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #2d6a4f;
+      --green-light: #52b788;
+      --green-pale: #d8f3dc;
+      --text: #1b1b1b;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --white: #ffffff;
+      --bg: #f9fafb;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--white);
+    }
+
+    a { color: var(--green); text-decoration: none; }
+
+    /* NAV */
+    nav {
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .brand {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--green);
+      letter-spacing: -.02em;
+    }
+    .nav-cta {
+      font-size: .875rem;
+      font-weight: 600;
+      color: var(--green);
+      border: 1.5px solid var(--green);
+      padding: .375rem .875rem;
+      border-radius: 6px;
+    }
+    .nav-cta:hover { background: var(--green-pale); }
+
+    /* HERO */
+    .hero {
+      padding: 4rem 1.5rem 3rem;
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-label {
+      display: inline-block;
+      background: var(--green-pale);
+      color: var(--green);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: .25rem .75rem;
+      border-radius: 99px;
+      margin-bottom: 1.25rem;
+    }
+    h1 {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--green);
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: .8rem 2rem;
+      border-radius: 8px;
+      letter-spacing: .01em;
+    }
+    .btn-primary:hover { background: #245e44; }
+    .hero-sub {
+      margin-top: .875rem;
+      font-size: .85rem;
+      color: var(--text-muted);
+    }
+    .hero-sub a { color: var(--text-muted); text-decoration: underline; }
+
+    /* HOW IT WORKS */
+    .section {
+      padding: 3rem 1.5rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--green-light);
+      margin-bottom: .5rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: 2rem;
+    }
+
+    .steps { display: flex; flex-direction: column; gap: 1.5rem; }
+    .step { display: flex; gap: 1rem; align-items: flex-start; }
+    .step-num {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      background: var(--green-pale);
+      color: var(--green);
+      font-weight: 700;
+      font-size: .875rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: .15rem;
+    }
+    .step h3 { font-size: 1rem; font-weight: 600; margin-bottom: .2rem; }
+    .step p { font-size: .9rem; color: var(--text-muted); }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 480px) {
+      .features-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .feature-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    .feature-icon { font-size: 1.5rem; margin-bottom: .5rem; }
+    .feature-card h3 { font-size: .95rem; font-weight: 600; margin-bottom: .25rem; }
+    .feature-card p { font-size: .85rem; color: var(--text-muted); }
+
+    /* FOR */
+    .for-section {
+      background: var(--bg);
+      padding: 3rem 1.5rem;
+    }
+    .for-inner { max-width: 640px; margin: 0 auto; }
+    .for-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .625rem;
+      margin-top: 1.5rem;
+    }
+    .for-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: .625rem;
+      font-size: .95rem;
+      color: var(--text-muted);
+    }
+    .for-list li::before {
+      content: "✓";
+      color: var(--green-light);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: .05rem;
+    }
+
+    /* CTA FOOTER */
+    .cta-footer {
+      padding: 4rem 1.5rem;
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .cta-footer h2 { margin-bottom: .75rem; }
+    .cta-footer p { color: var(--text-muted); margin-bottom: 2rem; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: .8rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">Jiminy</span>
+  <a href="https://app.jiminy.work/accounts/login/" class="nav-cta">Sign in</a>
+</nav>
+
+<section class="hero">
+  <span class="hero-label">For artisan makers</span>
+  <h1>Know what to make before you pack for the market</h1>
+  <p>Jiminy connects to Square or Shopify and builds your production list automatically — so you show up stocked, not guessing.</p>
+  <a href="https://app.jiminy.work/accounts/register/" class="btn-primary">Get started free</a>
+  <p class="hero-sub">Already have an account? <a href="https://app.jiminy.work/accounts/login/">Sign in</a></p>
+</section>
+
+<section class="section">
+  <p class="section-label">How it works</p>
+  <h2>From sales data to production list in minutes</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h3>Connect your store</h3>
+        <p>Link your Square or Shopify account. Your product catalog imports automatically — no manual entry.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h3>Enter your recipes</h3>
+        <p>Tell Jiminy what raw materials go into each product. Describe it in plain language and we'll help structure it.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h3>See your production list</h3>
+        <p>Every product below its par level shows up on your list, with a materials check so you know what you can actually make.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <p class="section-label">Features</p>
+  <h2>Everything you need, nothing you don't</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📦</div>
+      <h3>Raw materials inventory</h3>
+      <p>Track stock by weight, volume, or count. Know when you're running low before it's a problem.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧾</div>
+      <h3>Bill of materials</h3>
+      <p>Link ingredients to finished products. Jiminy does the math on what you can make with what you have.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Real-time sync</h3>
+      <p>Sales from Square and Shopify update your inventory automatically via webhooks — even when you're offline at a market.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>Mobile first</h3>
+      <p>Designed for a phone in one hand at a busy booth. No app to install — just open your browser.</p>
+    </div>
+  </div>
+</section>
+
+<div class="for-section">
+  <div class="for-inner">
+    <p class="section-label">Who it's for</p>
+    <h2>Built for makers who sell their own work</h2>
+    <ul class="for-list">
+      <li>Craft fair and festival vendors</li>
+      <li>Etsy and Shopify sellers who also sell in person</li>
+      <li>Small batch producers with repeatable recipes</li>
+      <li>Anyone currently planning production from instinct or a spreadsheet</li>
+      <li>Already using Square or Shopify (or both)</li>
+    </ul>
+  </div>
+</div>
+
+<section class="cta-footer">
+  <h2>Ready to stop guessing?</h2>
+  <p>Get your production list in under an hour. Connect your store, add your recipes, and Jiminy handles the rest.</p>
+  <a href="https://app.jiminy.work/accounts/register/" class="btn-primary">Create your account</a>
+</section>
+
+<footer>
+  &copy; 2026 Jiminy &mdash; <a href="https://app.jiminy.work/accounts/login/">Sign in</a>
+</footer>
+
+</body>
+</html>
